@@ -3,11 +3,11 @@
 # Array of servers
 servers=(localhost)
 
-# Stop and start commands for the two Tomcat servers
-tomcat1_stop="/home/manoj/bin/shutdown_1.sh"
-tomcat1_start="nohup /home/manoj/bin/startup_1.sh > /dev/null 2>&1 &"
-tomcat2_stop="/home/manoj/bin/shutdown_2.sh"
-tomcat2_start="nohup /home/manoj/bin/startup_2.sh > /dev/null 2>&1 &"
+# Stop and start commands for the two  servers
+1_stop="/home/manoj/bin/shutdown_1.sh"
+1_start="nohup /home/manoj/bin/startup_1.sh > /dev/null 2>&1 &"
+2_stop="/home/manoj/bin/shutdown_2.sh"
+2_start="nohup /home/manoj/bin/startup_2.sh > /dev/null 2>&1 &"
 
 # Prompt for username
 read -p "Enter your username: " username
@@ -55,29 +55,29 @@ check_process() {
 for server in "${servers[@]}"; do
     echo "Processing $server..."
 
-    # Stop Tomcat 1
-    execute_remote_command "$server" "$tomcat1_stop"
+    # Stop  1
+    execute_remote_command "$server" "$1_stop"
     check_process "$server" "shutdown_1\.sh" "stopped"
-    echo "Tomcat 1 stopped on $server"
+    echo " 1 stopped on $server"
 
-    # Stop Tomcat 2
-    execute_remote_command "$server" "$tomcat2_stop"
+    # Stop  2
+    execute_remote_command "$server" "$2_stop"
     check_process "$server" "shutdown_2\.sh" "stopped"
-    echo "Tomcat 2 stopped on $server"
+    echo " 2 stopped on $server"
 
-    # Start Tomcat 1
-    execute_remote_command "$server" "$tomcat1_start"
+    # Start  1
+    execute_remote_command "$server" "$1_start"
     check_process "$server" "startup_1\.sh" "started"
-    echo "Tomcat 1 started on $server"
+    echo " 1 started on $server"
 
     # Pause to avoid CPU overload
-    echo "Pausing for 3 seconds before starting Tomcat 2 on $server..."
+    echo "Pausing for 3 seconds before starting  2 on $server..."
     sleep 3
 
-    # Start Tomcat 2
-    execute_remote_command "$server" "$tomcat2_start"
+    # Start  2
+    execute_remote_command "$server" "$2_start"
     check_process "$server" "startup_2\.sh" "started"
-    echo "Tomcat 2 started on $server"
+    echo " 2 started on $server"
 
 done
 
