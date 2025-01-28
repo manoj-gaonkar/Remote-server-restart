@@ -90,28 +90,3 @@ Executing on localhost: nohup /home/username/bin/startup_2.sh > /dev/null 2>&1 &
 All servers processed successfully.
 ```
 
-## Notes
-
-- **Configurable SSH Port**: The script uses port `2228` for SSH. Update the `ssh` command in the script if a different port is required.
-- **Servers Array**: Modify the `servers` array to include all the servers you want to manage.
-- **Startup Script Background Execution**: `nohup` ensures that startup scripts continue running even if the SSH session closes.
-
-## Troubleshooting
-
-1. **Permission Denied Errors**:
-   Ensure the user has the correct permissions to execute the scripts on the remote server.
-
-2. **Process Not Stopping/Starting**:
-   Verify the paths to the stop and start scripts and ensure they are executable.
-
-3. **SSH Issues**:
-
-   - Check the SSH port and server connectivity.
-   - Ensure the SSH key or password for the user is correctly configured.
-
-4. **Script Hanging**:
-   If the startup script includes long-running commands (e.g., `sleep`), ensure it runs properly in the background using `nohup` and `&`.
-
-## License
-
-This script is provided "as is" without warranty of any kind. Modify and use it as needed for your own environment.
